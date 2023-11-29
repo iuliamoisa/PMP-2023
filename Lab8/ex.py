@@ -7,11 +7,10 @@ from multiprocessing import freeze_support
 
 def main():
     data = pd.read_csv('Lab8/Prices.csv')
-    # def variabile
+# def variabile
     price = data['Price']
     speed = data['Speed']
     hard_drive = np.log(data['HardDrive'])
-    model_regression = pm.Model()
     prem = data['Premium_Bonus'] = (data['Premium'] == 'yes').astype(int)
 
     # ex. 1)
@@ -57,17 +56,15 @@ def main():
     specific_hdi_price = pm.stats.hdi(specific_prices, hdi_prob=0.90)
     print("Estimarea HDI pentru pretul de vanzare asteptat:", specific_hdi_price) 
 
-    '''bonus
-    
-    intervalul obtinut pt beta_premium este larg si poate include 0
-    => atributul 'Premium' nu are mereu un impact semnificativ asupra predictiei pretului
-    => un producator premium nu contribuie in mod constant la variatia preturilor PC-urilor
-    '''
     if 0 not in hdi_beta_premium:
         print("Faptul ca producatorul este premium afecteaza semnificativ pretul.")
     else:
         print("Nu exista suficiente care sa ateste ca daca producatorul este premium pretul este afectat")
-
+    '''
+    intervalul obtinut pt beta_premium este larg si poate include 0
+    => atributul 'Premium' nu are mereu un impact semnificativ asupra predictiei pretului
+    => un producator premium nu contribuie in mod constant la variatia preturilor PC-urilor
+    '''
 
 if __name__ == '__main__':
     freeze_support()
